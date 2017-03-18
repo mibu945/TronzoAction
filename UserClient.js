@@ -21,10 +21,13 @@ export default class UserClient {
         return Client._fetch(Config.serverIP + "get/userBasicFromID?userID=" + userID, "GET", null, cb);
     }
     //註冊新用戶
-    static register(account, password, cb) {
+    static register(user, cb) {
         return Client._fetch(Config.serverIP + "post/user", "POST", JSON.stringify({
-            account : account,
-            password: password
+            name: user.name,
+            account : user.account,
+            password: user.password,
+            gender: user.gender,
+            birthday: user.birthday
         }), cb);
     }   
     //修改基本資料

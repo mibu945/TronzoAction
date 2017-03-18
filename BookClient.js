@@ -28,6 +28,10 @@ export default class BookClient {
         }), cb);
     }
 
+    static postImage(image, cb) {
+        Client._fetch(Config.serverIP + "post/image", "POST", image, cb);
+    }
+
     static postBookComment(bookID, comment, cb) {
         Client._fetch(Config.serverIP + "post/bookComment", "POST", JSON.stringify({
             bookID : bookID,
