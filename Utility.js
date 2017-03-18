@@ -19,6 +19,25 @@ export default class Client {
             }
         });
     }
+    static _fetch2(url, method, body, cb) {
+        return fetch(url, {
+            headers: {
+                //"Accept": "application/json, */*",
+                //"Content-Type": "multipart/form-data",
+                "Authorization": localStorage.getItem("jwt"),
+            },
+            method: method,
+            body: body
+        }).then(checkStatus)
+        .then(parseJSON)
+        .then(res => {
+            if(res.error){
+                return cb(res.error, null);
+            } else {
+                return cb(null, res);
+            }
+        });
+    }
 }
 
 function checkStatus(response) {
