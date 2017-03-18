@@ -6,7 +6,9 @@ export default class UserClient {
             account : account,
             password: password
         }), (err, res) => {
-            localStorage.setItem("jwt", res.token);
+            if(!err){
+                localStorage.setItem("jwt", res.token);
+            }           
             cb(err, res);
         });
     }
