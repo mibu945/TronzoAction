@@ -1,7 +1,9 @@
 import Client from './Utility'
 import Config from './config'
 export default class BookClient {
-
+    static getBooksDefault(cb) {
+        Client._fetch(Config.serverIP + "get/booksDefault", "GET", null, cb);
+    }
     static getBooksByTitle(title, cb) {
         Client._fetch(Config.serverIP + "get/booksByTitle?title=" + title, "GET", null, cb);
     }
