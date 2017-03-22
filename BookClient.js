@@ -22,19 +22,14 @@ export default class BookClient {
     }
 
     static postBook(book, cb) {
-        /*Client._fetch(Config.serverIP + "post/book", "POST", JSON.stringify({
-            title : book.title,
-            type: book.type,
-            description: book.description
-        }), cb);*/
-        //const form = new FormData(book.cover);
-        //console.log(form);
+       
         const formData = new FormData();
         console.log(book);
         formData.append("title", book.title);
         formData.append("type", book.type);
         formData.append("description", book.description);
         formData.append("cover", book.cover);
+        console.log(book.cover.size);
         Client._fetch2(Config.serverIP + "post/book", "POST", formData, cb);
 
     }
