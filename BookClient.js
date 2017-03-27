@@ -69,7 +69,29 @@ export default class BookClient {
         }), cb);
     }
 
-   static deleteBook(bookID, cb) {
+    static putLikeBook(bookID, cb) {
+        Client._fetch(Config.serverIP + "put/likeBook", "POST", JSON.stringify({
+            bookID : bookID
+        }), cb);
+    }
+    static putCancelLikeBook(bookID, cb) {
+        Client._fetch(Config.serverIP + "put/cancelLikeBook", "POST", JSON.stringify({
+            bookID : bookID
+        }), cb);
+    }
+
+    static putStoreBook(bookID, cb) {
+        Client._fetch(Config.serverIP + "put/storeBook", "POST", JSON.stringify({
+            bookID : bookID
+        }), cb);
+    }
+    static putCancelStoreBook(bookID, cb) {
+        Client._fetch(Config.serverIP + "put/cancelStoreBook", "POST", JSON.stringify({
+            bookID : bookID
+        }), cb);
+    }
+    
+    static deleteBook(bookID, cb) {
         Client._fetch(Config.serverIP + "delete/book", "POST", JSON.stringify({
             bookID: bookID
         }), cb);

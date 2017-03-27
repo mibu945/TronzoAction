@@ -31,11 +31,10 @@ export default class UserClient {
             birthday: user.birthday
         }), cb);
     }   
-    //修改基本資料
-    static putBasic(user, cb) {
-        return Client._fetch(Config.serverIP + "put/userBasic", "POST", JSON.stringify({
-            describe : user.describe
-        }), cb);
+    static putUserProfilePic(pic, cb) {
+        const formData = new FormData();
+        formData.append("profilePic", pic);
+        Client._fetch2(Config.serverIP + "put/userProfilePic", "POST", formData, cb);
     }
     //追隨其他user
     static followUser(userID, cb) {
@@ -49,16 +48,5 @@ export default class UserClient {
             userID : userID
         }), cb);
     }
-    //收藏某book
-    static collectBook(bookID, cb) {
-        return Client._fetch(Config.serverIP + "put/collectBook", "POST", JSON.stringify({
-            bookID : bookID
-        }), cb);
-    }
-    //取消收藏
-    static cancelCollectBook(bookID, cb){
-        return Client._fetch(Config.serverIP + "put/cancelCollectBook", "POST", JSON.stringify({
-            bookID : bookID
-        }), cb);
-    }
+    
 }

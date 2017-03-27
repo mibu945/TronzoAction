@@ -9,10 +9,13 @@ export default class UnRegister extends React.Component {
 	constructor(){
 		super();
         this.state = {
-            file: null
+            file: null,
+            pic: null
         }
         this.handleCreate = this.handleCreate.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleProfilePicChange = this.handleProfilePicChange.bind(this);
+        this.handleProfilePic = this.handleProfilePic.bind(this);
     }
     handleSearchUser(e, { formData }) {
 		e.preventDefault();
@@ -62,6 +65,19 @@ export default class UnRegister extends React.Component {
                 console.log(res.suc);
             }
         });
+	}
+    handleProfilePicChange(e) {
+		e.preventDefault();
+
+        var filelist = e.target.files;
+        var str = '';
+        for(var i = 0; i < filelist.length ; i++ ) {
+            var file = filelist[i];
+            str += "name：" + escape(file.name) + "\n" + "type：" + file.type + "\n" + 
+                "size：" + file.size + "\n";
+        }
+        this.setState({pic: filelist[0]});
+        console.log(str);
 	}
     handleChange(e) {
 		e.preventDefault();
@@ -127,9 +143,46 @@ export default class UnRegister extends React.Component {
 	}
 
 
-    handleUpload(e, { formData }) {
+    handleLike(e, { formData }) {
 		e.preventDefault();
-	}
+	    BookClient.putLikeBook(formData.bookID, (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } 
+        });
+    }
+    handleCancelLike(e, { formData }) {
+		e.preventDefault();
+	    BookClient.putCancelLikeBook(formData.bookID, (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } 
+        });
+    }
+    handleStore(e, { formData }) {
+		e.preventDefault();
+	    BookClient.putStoreBook(formData.bookID, (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } 
+        });
+    }
+    handleCancelStore(e, { formData }) {
+		e.preventDefault();
+	    BookClient.putCancelStoreBook(formData.bookID, (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } 
+        });
+    }
+    handleProfilePic(e, { formData }) {
+		e.preventDefault();
+	    UserClient.putUserProfilePic(this.state.pic, (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } 
+        });
+    }
 
 
     
@@ -148,6 +201,10 @@ export default class UnRegister extends React.Component {
 
                         <Button type="submit">註冊</Button>
                     </Form>
+                    <Form onSubmit={this.handleProfilePic} onChange={(e)=>this.handleProfilePicChange(e)} encType="multipart/form-data">
+                        <Form.Input id="test" label="圖片" name="pic" type="file"></Form.Input>
+                        <Button type="submit">創書</Button>
+                     </Form>
 
                     <Form onSubmit={this.handleSearchUser}>
                         <Form.Input label="帳號" name="account" type="text" ></Form.Input>
@@ -178,10 +235,28 @@ export default class UnRegister extends React.Component {
                         <Button type="submit">查詢</Button>
                     </Form>
 
-                     <Form onSubmit={this.handleSearch2}>
+                    <Form onSubmit={this.handleSearch2}>
                         <Form.Input label="使用者ID" name="userID" type="text" ></Form.Input>
                         <Button type="submit">查詢</Button>
                     </Form>
+
+                    <Form onSubmit={this.handleLike}>
+                        <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
+                        <Button type="submit">點贊</Button>
+                    </Form>
+                     <Form onSubmit={this.handleCancelLike}>
+                        <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
+                        <Button type="submit">取消點贊</Button>
+                    </Form>
+                    <Form onSubmit={this.handleStore}>
+                        <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
+                        <Button type="submit">收藏</Button>
+                    </Form>
+                     <Form onSubmit={this.handleCancelStore}>
+                        <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
+                        <Button type="submit">取消收藏</Button>
+                    </Form>
+
                    
                     <Form onSubmit={this.handlePostComment}>
                         <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
