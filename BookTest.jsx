@@ -203,7 +203,7 @@ export default class UnRegister extends React.Component {
                     </Form>
                     <Form onSubmit={this.handleProfilePic} onChange={(e)=>this.handleProfilePicChange(e)} encType="multipart/form-data">
                         <Form.Input id="test" label="圖片" name="pic" type="file"></Form.Input>
-                        <Button type="submit">創書</Button>
+                        <Button type="submit">改大頭貼</Button>
                      </Form>
 
                     <Form onSubmit={this.handleSearchUser}>
