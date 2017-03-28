@@ -102,9 +102,9 @@ export default class UnRegister extends React.Component {
             }
         });
 	}
-    handlePostContent(e, { formData }) {
+    handlePostSection(e, { formData }) {
 		e.preventDefault();
-        BookClient.postBookContent(formData.bookID, formData.title, (err, res) => {
+        BookClient.postBookSection(formData.bookID, formData.title, (err, res) => {
             if(err){
                 console.log("fail:" + err);
             } else {
@@ -112,12 +112,12 @@ export default class UnRegister extends React.Component {
             }
         });
 	}
-    handlePutContent(e, { formData }) {
+    handlePutSection(e, { formData }) {
 		e.preventDefault();
-        BookClient.putBookContent({
-            _id: formData.contentID, 
+        BookClient.putBookSection({
+            sectionID: formData.sectionID, 
             title: formData.title, 
-            data: formData.content
+            content: formData.content
         }, (err, res) => {
             if(err){
                 console.log("fail:" + err);
@@ -181,6 +181,16 @@ export default class UnRegister extends React.Component {
             if(err){
                 console.log("fail:" + err);
             } 
+        });
+    }
+    handleGetSection(e, { formData }) {
+		e.preventDefault();
+	    BookClient.getBookSection(formData.sectionID, (err, section) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(section));
+            }
         });
     }
 
@@ -264,22 +274,22 @@ export default class UnRegister extends React.Component {
                         <Button type="submit">留言</Button>
                     </Form>
 
-                    <Form onSubmit={this.handlePostContent}>
+                    <Form onSubmit={this.handlePostSection}>
                         <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
                         <Form.Input label="標題" name="title" type="text" ></Form.Input>
                         <Button type="submit">創建新章節</Button>
                     </Form>
 
-                    <Form onSubmit={this.handlePutContent}>
-                        <Form.Input label="章節ID" name="contentID" type="text" ></Form.Input>
+                    <Form onSubmit={this.handlePutSection}>
+                        <Form.Input label="章節ID" name="sectionID" type="text" ></Form.Input>
+                        <Form.Input label="標題" name="title" type="text" ></Form.Input>
                         <Form.Input label="內文" name="content" type="text" ></Form.Input>
                         <Button type="submit">修改</Button>
                     </Form>
 
 
-                    <Form onSubmit={this.handlePutBasic}>
-                        <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
-                        <Form.Input label="第幾章" name="num" type="text" ></Form.Input>
+                    <Form onSubmit={this.handleGetSection}>
+                        <Form.Input label="章節ID" name="sectionID" type="text" ></Form.Input>
                         <Button type="submit">查詢</Button>
                     </Form>
 

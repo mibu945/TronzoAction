@@ -13,12 +13,8 @@ export default class BookClient {
         Client._fetch(Config.serverIP + "get/booksByUser?userID=" + userID, "GET", null, cb);
     }
 
-    static getBook(bookID, cb) {
-        Client._fetch(Config.serverIP + "get/books?bookID=" + bookID, "GET", null, cb);
-    }
-
-    static getBookContent(bookID, num, cb) {
-        Client._fetch(Config.serverIP + "get/books?bookID=" + bookID + "&num=" + num, "GET", null, cb);
+    static getBookSection(sectionID, cb) {
+        Client._fetch(Config.serverIP + "get/bookSection?sectionID=" + sectionID, "GET", null, cb);
     }
 
     static postBook(book, cb) {
@@ -45,10 +41,10 @@ export default class BookClient {
         }), cb);
     }
  
-    static postBookContent(bookID, contentTitle, cb) {
-        Client._fetch(Config.serverIP + "post/bookContent", "POST", JSON.stringify({
+    static postBookSection(bookID, title, cb) {
+        Client._fetch(Config.serverIP + "post/bookSection", "POST", JSON.stringify({
             bookID : bookID,
-            contentTitle: contentTitle
+            title: title
         }), cb);
     }
 
@@ -61,11 +57,11 @@ export default class BookClient {
         }), cb);
     }
 
-    static putBookContent(content, cb) {
-        Client._fetch(Config.serverIP + "put/bookContent", "POST", JSON.stringify({
-            contentID : content._id,
-            title: content.title,
-            content: content.data
+    static putBookSection(section, cb) {
+        Client._fetch(Config.serverIP + "put/bookSection", "POST", JSON.stringify({
+            sectionID : section.sectionID,
+            title: section.title,
+            content: section.content
         }), cb);
     }
 
