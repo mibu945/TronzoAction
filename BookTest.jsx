@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from 'semantic-ui-react';
 
+import PostClient from '../action/PostClient';
 import BookClient from '../action/BookClient';
 import UserClient from '../action/UserClient';
 var FileReader = require('filereader')
@@ -16,6 +17,15 @@ export default class UnRegister extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleProfilePicChange = this.handleProfilePicChange.bind(this);
         this.handleProfilePic = this.handleProfilePic.bind(this);
+    }
+    handleGetUser(e, {formData}) {
+		e.preventDefault();
+        UserClient.getUser((err, user) => {
+            if(err){
+                console.log("fail:" + err);
+            }
+            console.log(JSON.stringify(user));
+        });
     }
     handleSearchUser(e, { formData }) {
 		e.preventDefault();
@@ -193,6 +203,42 @@ export default class UnRegister extends React.Component {
             }
         });
     }
+    handleGetPost(e, { formData }) {
+		e.preventDefault();
+	    PostClient.getPostsByUser(formData.userID, (err, posts) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(posts));
+            }
+        });
+    }
+    handlePostPost(e, { formData }) {
+		e.preventDefault();
+	    PostClient.postPost(formData.bookID, formData.content, (err, res) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(res._id);
+            }
+        });
+    }
+    handlePutPost(e, { formData }) {
+		e.preventDefault();
+	    PostClient.putPost(formData.postID, formData.content, (err, res) =>{
+            if(err){
+                console.log("fail:" + err);
+            } 
+        });
+    }
+    handleDeletePost(e, { formData }) {
+		e.preventDefault();
+	    PostClient.deletePost(formData.postID, (err, res) =>{
+            if(err){
+                console.log("fail:" + err);
+            } 
+        });
+    }
 
 
     
@@ -207,10 +253,9 @@ export default class UnRegister extends React.Component {
                         <Form.Input label="密碼" name="password" type="text" ></Form.Input>
                     <Form.Input label="生日" name="birthday" type="text" ></Form.Input>
                         <Form.Input label="性別" name="gender" type="text" ></Form.Input>
-
-
                         <Button type="submit">註冊</Button>
                     </Form>
+                    
                     <Form onSubmit={this.handleProfilePic} onChange={(e)=>this.handleProfilePicChange(e)} encType="multipart/form-data">
                         <Form.Input id="test" label="圖片" name="pic" type="file"></Form.Input>
                         <Button type="submit">改大頭貼</Button>
@@ -223,6 +268,9 @@ export default class UnRegister extends React.Component {
 
                     <Form onSubmit={this.handleDefault}>
                         <Button type="submit">推薦書籍</Button>
+                    </Form>
+                    <Form onSubmit={this.handleGetUser}>
+                        <Button type="submit">查詢自己</Button>
                     </Form>
 
 
@@ -291,6 +339,28 @@ export default class UnRegister extends React.Component {
                     <Form onSubmit={this.handleGetSection}>
                         <Form.Input label="章節ID" name="sectionID" type="text" ></Form.Input>
                         <Button type="submit">查詢</Button>
+                    </Form>
+
+                    <Form onSubmit={this.handleGetPost}>
+                        <Form.Input label="使用者ID" name="userID" type="text" ></Form.Input>
+                        <Button type="submit">查詢</Button>
+                    </Form>
+
+                    <Form onSubmit={this.handlePostPost}>
+                        <Form.Input label="bookID" name="bookID" type="text" ></Form.Input>
+                        <Form.Input label="內容" name="content" type="text" ></Form.Input>
+                        <Button type="submit">po文</Button>
+                    </Form>
+
+                    <Form onSubmit={this.handlePutPost}>
+                        <Form.Input label="postID" name="postID" type="text" ></Form.Input>
+                        <Form.Input label="內容" name="content" type="text" ></Form.Input>
+                        <Button type="submit">改文</Button>
+                    </Form>
+                   
+                    <Form onSubmit={this.handleDeletePost}>
+                        <Form.Input label="postID" name="postID" type="text" ></Form.Input>
+                        <Button type="submit">刪除文</Button>
                     </Form>
 
                </div>

@@ -13,13 +13,16 @@ export default class UserClient {
             cb(err, res);
         });
     }
+    static getUser(cb) {
+        return Client._fetch(Config.serverIP + "get/user", "GET", null, cb);
+    }
     //取得基本資訊
     static getUserByAccount(account, cb) {
         return Client._fetch(Config.serverIP + "get/userByAccount?account=" + account, "GET", null, cb);
     }
     //取得基本資訊
-    static getBasicFromID(userID, cb) {
-        return Client._fetch(Config.serverIP + "get/userBasicFromID?userID=" + userID, "GET", null, cb);
+    static getUserByID(userID, cb) {
+        return Client._fetch(Config.serverIP + "get/userByID?userID=" + userID, "GET", null, cb);
     }
     //註冊新用戶
     static register(user, cb) {
