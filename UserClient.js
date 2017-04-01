@@ -16,10 +16,7 @@ export default class UserClient {
     static getUser(cb) {
         return Client._fetch(Config.serverIP + "get/user", "GET", null, cb);
     }
-    //取得基本資訊
-    static getUserByAccount(account, cb) {
-        return Client._fetch(Config.serverIP + "get/userByAccount?account=" + account, "GET", null, cb);
-    }
+
     //取得基本資訊
     static getUserByID(userID, cb) {
         return Client._fetch(Config.serverIP + "get/userByID?userID=" + userID, "GET", null, cb);

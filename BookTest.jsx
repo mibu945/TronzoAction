@@ -29,11 +29,11 @@ export default class UnRegister extends React.Component {
     }
     handleSearchUser(e, { formData }) {
 		e.preventDefault();
-        UserClient.getUserByAccount(formData.account, (err, user) => {
+        UserClient.getUserByID(formData.userID, (err, user) => {
             if(err){
                 console.log("fail:" + err);
             }
-            console.log(user._id);
+            console.log(JSON.stringify(user));
         });
 	}
     handleLogin(e, { formData }) {
@@ -105,6 +105,16 @@ export default class UnRegister extends React.Component {
     handlePostComment(e, { formData }) {
 		e.preventDefault();
         BookClient.postBookComment(formData.bookID, formData.comment, (err, res) => {
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(res.suc);
+            }
+        });
+	}
+    handleDeleteSection(e, { formData }) {
+		e.preventDefault();
+        BookClient.deleteBookSection(formData.sectionID, (err, res) => {
             if(err){
                 console.log("fail:" + err);
             } else {
@@ -239,7 +249,16 @@ export default class UnRegister extends React.Component {
             } 
         });
     }
-
+    handleFollow(e, { formData }) {
+		e.preventDefault();
+	    UserClient.followUser(formData.userID, (err, res) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(res));
+            }
+        });
+    }
 
     
 	render (){
@@ -247,22 +266,28 @@ export default class UnRegister extends React.Component {
                 <div className="">
                 {localStorage.getItem("jwt")}
                 {localStorage.getItem("_id")}
-                <Form onSubmit={this.handleRegister} >
+                    
+                    <Form onSubmit={this.handleRegister} >
                         <Form.Input label="名稱" name="name" type="text" ></Form.Input>
-                    <Form.Input label="帳號" name="account" type="text" ></Form.Input>
+                        <Form.Input label="帳號" name="account" type="text" ></Form.Input>
                         <Form.Input label="密碼" name="password" type="text" ></Form.Input>
-                    <Form.Input label="生日" name="birthday" type="text" ></Form.Input>
+                        <Form.Input label="生日" name="birthday" type="text" ></Form.Input>
                         <Form.Input label="性別" name="gender" type="text" ></Form.Input>
                         <Button type="submit">註冊</Button>
                     </Form>
                     
+                    <Form onSubmit={this.handleFollow} >
+                        <Form.Input label="UserID" name="userID" type="text" ></Form.Input>
+                        <Button type="submit">追隨</Button>
+                    </Form>
+
                     <Form onSubmit={this.handleProfilePic} onChange={(e)=>this.handleProfilePicChange(e)} encType="multipart/form-data">
                         <Form.Input id="test" label="圖片" name="pic" type="file"></Form.Input>
                         <Button type="submit">改大頭貼</Button>
                      </Form>
 
                     <Form onSubmit={this.handleSearchUser}>
-                        <Form.Input label="帳號" name="account" type="text" ></Form.Input>
+                        <Form.Input label="userID" name="userID" type="text" ></Form.Input>
                         <Button type="submit">查詢</Button>
                     </Form>
 
@@ -333,6 +358,11 @@ export default class UnRegister extends React.Component {
                         <Form.Input label="標題" name="title" type="text" ></Form.Input>
                         <Form.Input label="內文" name="content" type="text" ></Form.Input>
                         <Button type="submit">修改</Button>
+                    </Form>
+
+                    <Form onSubmit={this.handleDeleteSection}>
+                        <Form.Input label="章節ID" name="sectionID" type="text" ></Form.Input>
+                        <Button type="submit">刪除</Button>
                     </Form>
 
 

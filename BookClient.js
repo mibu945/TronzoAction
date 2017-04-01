@@ -93,9 +93,9 @@ export default class BookClient {
         }), cb);
     }
 
-    static deleteBookContent(contentID, cb) {
-         Client._fetch(Config.serverIP + "delete/bookContent", "POST", JSON.stringify({
-            contentID: contentID
+    static deleteBookSection(sectionID, cb) {
+         Client._fetch(Config.serverIP + "delete/bookSection", "POST", JSON.stringify({
+            sectionID: sectionID
         }), cb);
     }
 }
