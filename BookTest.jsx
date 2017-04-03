@@ -27,6 +27,15 @@ export default class UnRegister extends React.Component {
             console.log(JSON.stringify(user));
         });
     }
+    handlePutUser(e, {formData}) {
+		e.preventDefault();
+        UserClient.putUser(formData, (err, user) => {
+            if(err){
+                console.log("fail:" + err);
+            }
+            console.log(JSON.stringify(user));
+        });
+    }
     handleSearchUser(e, { formData }) {
 		e.preventDefault();
         UserClient.getUserByID(formData.userID, (err, user) => {
@@ -151,9 +160,32 @@ export default class UnRegister extends React.Component {
 		UserClient.register(formData, (err, res) =>{
         });
 	}
-    handleDefault(e, { formData }) {
+
+    handleInterest(e, { formData }) {
 		e.preventDefault();
-		BookClient.getBooksDefault((err, books) =>{
+		BookClient.getInterestedBooks((err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(books));
+            }
+        });
+	}
+
+    handleMyBooks(e, { formData }) {
+		e.preventDefault();
+		BookClient.getBooksByUser(localStorage.getItem("_id"), (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(books));
+            }
+        });
+	}
+
+    handleRecommend(e, { formData }) {
+		e.preventDefault();
+		BookClient.getRecommendedBooks((err, books) =>{
             if(err){
                 console.log("fail:" + err);
             } else {
@@ -259,6 +291,16 @@ export default class UnRegister extends React.Component {
             }
         });
     }
+    handleCancelFollow(e, { formData }) {
+		e.preventDefault();
+	    UserClient.cancelFollowUser(formData.userID, (err, res) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(res));
+            }
+        });
+    }
 
     
 	render (){
@@ -275,10 +317,17 @@ export default class UnRegister extends React.Component {
                         <Form.Input label="性別" name="gender" type="text" ></Form.Input>
                         <Button type="submit">註冊</Button>
                     </Form>
-                    
+                    <Form onSubmit={this.handlePutUser} >
+                        <Form.Input label="敘述" name="description" type="text" ></Form.Input>
+                        <Button type="submit">更改</Button>
+                    </Form>
                     <Form onSubmit={this.handleFollow} >
                         <Form.Input label="UserID" name="userID" type="text" ></Form.Input>
                         <Button type="submit">追隨</Button>
+                    </Form>
+                    <Form onSubmit={this.handleCancelFollow} >
+                        <Form.Input label="UserID" name="userID" type="text" ></Form.Input>
+                        <Button type="submit">不追隨</Button>
                     </Form>
 
                     <Form onSubmit={this.handleProfilePic} onChange={(e)=>this.handleProfilePicChange(e)} encType="multipart/form-data">
@@ -291,9 +340,18 @@ export default class UnRegister extends React.Component {
                         <Button type="submit">查詢</Button>
                     </Form>
 
-                    <Form onSubmit={this.handleDefault}>
+                    <Form onSubmit={this.handleRecommend}>
                         <Button type="submit">推薦書籍</Button>
                     </Form>
+
+                    <Form onSubmit={this.handleInterest}>
+                        <Button type="submit">有興趣書籍</Button>
+                    </Form>
+
+                    <Form onSubmit={this.handleMyBooks}>
+                        <Button type="submit">自己的書籍</Button>
+                    </Form>
+
                     <Form onSubmit={this.handleGetUser}>
                         <Button type="submit">查詢自己</Button>
                     </Form>

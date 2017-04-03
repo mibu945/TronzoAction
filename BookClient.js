@@ -2,13 +2,17 @@ import Client from './Utility'
 import Config from './config'
 //import fs from 'fs'
 export default class BookClient {
-    static getBooksDefault(cb) {
-        Client._fetch(Config.serverIP + "get/booksDefault", "GET", null, cb);
-    }
     static getBooksByTitle(title, cb) {
         Client._fetch(Config.serverIP + "get/booksByTitle?title=" + title, "GET", null, cb);
     }
 
+    static getInterestedBooks(cb) {
+        Client._fetch(Config.serverIP + "get/interestedBooks", "GET", null, cb);
+    }
+    static getRecommendedBooks(cb) {
+        Client._fetch(Config.serverIP + "get/recommendedBooks", "GET", null, cb);
+    }
+    
     static getBooksByUser(userID, cb) {
         Client._fetch(Config.serverIP + "get/booksByUser?userID=" + userID, "GET", null, cb);
     }
@@ -30,9 +34,6 @@ export default class BookClient {
 
     }
 
-    static postImage(image, cb) {
-        Client._fetch(Config.serverIP + "post/image", "POST", image, cb);
-    }
 
     static postBookComment(bookID, comment, cb) {
         Client._fetch(Config.serverIP + "post/bookComment", "POST", JSON.stringify({

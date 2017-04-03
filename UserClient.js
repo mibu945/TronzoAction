@@ -36,6 +36,11 @@ export default class UserClient {
         formData.append("profilePic", pic);
         Client._fetch2(Config.serverIP + "put/userProfilePic", "POST", formData, cb);
     }
+
+    static putUser(user, cb) {
+        return Client._fetch(Config.serverIP + "put/user", "POST", JSON.stringify({description: user.description}), cb);
+    }
+
     //追隨其他user
     static followUser(userID, cb) {
         return Client._fetch(Config.serverIP + "put/followUser", "POST", JSON.stringify({
