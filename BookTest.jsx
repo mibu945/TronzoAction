@@ -45,6 +45,25 @@ export default class UnRegister extends React.Component {
             console.log(JSON.stringify(user));
         });
 	}
+
+    handlePutStoredList(e, { formData }) {
+		e.preventDefault();
+        var bookIDs = [];
+        bookIDs.push(formData.id1);
+        bookIDs.push(formData.id2);
+        bookIDs.push(formData.id3);
+        bookIDs.push(formData.id4);
+        bookIDs.push(formData.id5);
+        bookIDs.push(formData.id6);
+        bookIDs.push(formData.id7);
+        bookIDs.push(formData.id8);
+        BookClient.putStoredList(bookIDs, (err, res) => {
+            if(err){
+                console.log("fail:" + err);
+            }
+            console.log(JSON.stringify(res));
+        });
+	}
     handleLogin(e, { formData }) {
 		e.preventDefault();
         UserClient.login(formData.account, formData.password, (err, books) => {
@@ -65,6 +84,7 @@ export default class UnRegister extends React.Component {
 	}
     handleSearch2(e, { formData }) {
 		e.preventDefault();
+
         BookClient.getBooksByUser(formData.userID, (err, books) => {
             if(err){
                 console.log("fail:" + err);
@@ -175,6 +195,27 @@ export default class UnRegister extends React.Component {
     handleMyBooks(e, { formData }) {
 		e.preventDefault();
 		BookClient.getBooksByUser(localStorage.getItem("_id"), (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(books));
+            }
+        });
+	}
+    handleHistory(e, { formData }) {
+		e.preventDefault();
+		BookClient.getHistoricalBooks((err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(books));
+            }
+        });
+	}
+
+    handleStoredList(e, { formData }) {
+		e.preventDefault();
+		BookClient.getStoredListBooks((err, books) =>{
             if(err){
                 console.log("fail:" + err);
             } else {
@@ -351,6 +392,12 @@ export default class UnRegister extends React.Component {
                     <Form onSubmit={this.handleMyBooks}>
                         <Button type="submit">自己的書籍</Button>
                     </Form>
+                    <Form onSubmit={this.handleHistory}>
+                        <Button type="submit">最近看過書籍</Button>
+                    </Form>
+                    <Form onSubmit={this.handleStoredList}>
+                        <Button type="submit">珍藏的書籍</Button>
+                    </Form>
 
                     <Form onSubmit={this.handleGetUser}>
                         <Button type="submit">查詢自己</Button>
@@ -379,6 +426,17 @@ export default class UnRegister extends React.Component {
                     <Form onSubmit={this.handleSearch2}>
                         <Form.Input label="使用者ID" name="userID" type="text" ></Form.Input>
                         <Button type="submit">查詢</Button>
+                    </Form>
+                     <Form onSubmit={this.handlePutStoredList}>
+                        <Form.Input label="書ID" name="id1" type="text" ></Form.Input>
+                        <Form.Input label="書ID" name="id2" type="text" ></Form.Input>
+                        <Form.Input label="書ID" name="id3" type="text" ></Form.Input>
+                        <Form.Input label="書ID" name="id4" type="text" ></Form.Input>
+                        <Form.Input label="書ID" name="id5" type="text" ></Form.Input>
+                        <Form.Input label="書ID" name="id6" type="text" ></Form.Input>
+                        <Form.Input label="書ID" name="id7" type="text" ></Form.Input>
+                        <Form.Input label="書ID" name="id8" type="text" ></Form.Input>
+                        <Button type="submit">送出</Button>
                     </Form>
 
                     <Form onSubmit={this.handleLike}>

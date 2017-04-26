@@ -5,7 +5,12 @@ export default class BookClient {
     static getBooksByTitle(title, cb) {
         Client._fetch(Config.serverIP + "get/booksByTitle?title=" + title, "GET", null, cb);
     }
-
+    static getStoredListBooks(cb) {
+        Client._fetch(Config.serverIP + "get/storedListBooks", "GET", null, cb);
+    }
+    static getHistoricalBooks(cb) {
+        Client._fetch(Config.serverIP + "get/historicalBooks", "GET", null, cb);
+    }
     static getInterestedBooks(cb) {
         Client._fetch(Config.serverIP + "get/interestedBooks", "GET", null, cb);
     }
@@ -85,6 +90,11 @@ export default class BookClient {
     static putCancelStoreBook(bookID, cb) {
         Client._fetch(Config.serverIP + "put/cancelStoreBook", "POST", JSON.stringify({
             bookID : bookID
+        }), cb);
+    }
+    static putStoredList(bookIDs, cb) {
+        Client._fetch(Config.serverIP + "put/storedList", "POST", JSON.stringify({
+            bookIDs : bookIDs
         }), cb);
     }
     
