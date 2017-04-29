@@ -25,6 +25,9 @@ export default class BookClient {
     static getBookSection(sectionID, cb) {
         Client._fetch(Config.serverIP + "get/bookSection?sectionID=" + sectionID, "GET", null, cb);
     }
+    static getBookSection(bookID, sectionNum, cb) {
+        Client._fetch(Config.serverIP + "get/bookSection?bookID=" + bookID + "&num=" + sectionNum, "GET", null, cb);
+    }
 
     static postBook(book, cb) {
        

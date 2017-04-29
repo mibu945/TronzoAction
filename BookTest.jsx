@@ -278,13 +278,23 @@ export default class UnRegister extends React.Component {
     }
     handleGetSection(e, { formData }) {
 		e.preventDefault();
-	    BookClient.getBookSection(formData.sectionID, (err, section) =>{
-            if(err){
-                console.log("fail:" + err);
-            } else {
-                console.log(JSON.stringify(section));
-            }
-        });
+        if(formData.sectionID != ""){
+            BookClient.getBookSection(formData.sectionID, (err, section) =>{
+                if(err){
+                    console.log("fail:" + err);
+                } else {
+                    console.log(JSON.stringify(section));
+                }
+            });
+        } else {
+            BookClient.getBookSection(formData.bookID, formData.num, (err, section) =>{
+                if(err){
+                    console.log("fail:" + err);
+                } else {
+                    console.log(JSON.stringify(section));
+                }
+            });
+        }
     }
     handleGetPost(e, { formData }) {
 		e.preventDefault();
@@ -484,6 +494,8 @@ export default class UnRegister extends React.Component {
 
                     <Form onSubmit={this.handleGetSection}>
                         <Form.Input label="章節ID" name="sectionID" type="text" ></Form.Input>
+                        <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
+                        <Form.Input label="第幾章" name="num" type="text" ></Form.Input>
                         <Button type="submit">查詢</Button>
                     </Form>
 
