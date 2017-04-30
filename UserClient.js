@@ -13,6 +13,17 @@ export default class UserClient {
             cb(err, res);
         });
     }
+    static loginByFB(token, cb) {
+        return Client._fetch(Config.serverIP + "loginByFB", "POST", JSON.stringify({
+            access_token : token,
+        }), (err, res) => {
+            if(!err){
+                localStorage.setItem("jwt", res.token);
+                localStorage.setItem("_id", res._id);
+            }           
+            cb(err, res);
+        });
+    }
     static getUser(cb) {
         return Client._fetch(Config.serverIP + "get/user", "GET", null, cb);
     }

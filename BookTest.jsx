@@ -4,6 +4,7 @@ import { Button, Checkbox, Form, Input, Message, Radio, Select, TextArea } from 
 import PostClient from '../action/PostClient';
 import BookClient from '../action/BookClient';
 import UserClient from '../action/UserClient';
+import FB from 'fb';
 var FileReader = require('filereader')
 , fileReader = new FileReader();
 export default class UnRegister extends React.Component {
@@ -70,6 +71,16 @@ export default class UnRegister extends React.Component {
             if(err){
                 console.log("fail:" + err);
             } 
+        });
+	}
+    handleLoginByFB(e, { formData }) {
+		e.preventDefault();
+        UserClient.loginByFB(formData.token, (err, books) => {
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log("suc");
+            }
         });
 	}
 	handleSearch(e, { formData }) {
@@ -417,6 +428,10 @@ export default class UnRegister extends React.Component {
                     <Form onSubmit={this.handleLogin}>
                         <Form.Input label="帳號" name="account" type="text" ></Form.Input>
                         <Form.Input label="密碼" name="password" type="text" ></Form.Input>
+                        <Button type="submit">登入</Button>
+                    </Form>
+                    <Form onSubmit={this.handleLoginByFB}>
+                        <Form.Input label="token" name="token" type="text" ></Form.Input>
                         <Button type="submit">登入</Button>
                     </Form>
 
