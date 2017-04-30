@@ -28,6 +28,15 @@ export default class UnRegister extends React.Component {
             console.log(JSON.stringify(user));
         });
     }
+    handleBookID(e, {formData}) {
+		e.preventDefault();
+        BookClient.getBookByID(formData.bookID, (err, user) => {
+            if(err){
+                console.log("fail:" + err);
+            }
+            console.log(JSON.stringify(user));
+        });
+    }
     handlePutUser(e, {formData}) {
 		e.preventDefault();
         UserClient.putUser(formData, (err, user) => {
@@ -400,6 +409,10 @@ export default class UnRegister extends React.Component {
                     <Form onSubmit={this.handleSearchUser}>
                         <Form.Input label="userID" name="userID" type="text" ></Form.Input>
                         <Button type="submit">查詢</Button>
+                    </Form>
+                    <Form onSubmit={this.handleBookID}>
+                        <Form.Input label="bookID" name="bookID" type="text" ></Form.Input>
+                    <Button type="submit">查詢</Button>
                     </Form>
 
                     <Form onSubmit={this.handleRecommend}>
