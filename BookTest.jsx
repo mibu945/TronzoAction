@@ -28,6 +28,7 @@ export default class UnRegister extends React.Component {
             console.log(JSON.stringify(user));
         });
     }
+
     handleBookID(e, {formData}) {
 		e.preventDefault();
         BookClient.getBookByID(formData.bookID, (err, user) => {
@@ -110,6 +111,16 @@ export default class UnRegister extends React.Component {
                 console.log("fail:" + err);
             } else {
                 console.log(JSON.stringify(books));
+            }
+        });
+	}
+    handleUserBookAndPost(e, { formData }) {
+		e.preventDefault();
+        BookClient.getBooksAndPostsByUser(formData.userID, (err, datas) => {
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(datas));
             }
         });
 	}
@@ -204,6 +215,16 @@ export default class UnRegister extends React.Component {
     handleInterest(e, { formData }) {
 		e.preventDefault();
 		BookClient.getInterestedBooks((err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(books));
+            }
+        });
+	}
+    handleInterest2(e, { formData }) {
+		e.preventDefault();
+		BookClient.getInterestedBooksAndPosts((err, books) =>{
             if(err){
                 console.log("fail:" + err);
             } else {
@@ -307,7 +328,7 @@ export default class UnRegister extends React.Component {
                 }
             });
         } else {
-            BookClient.getBookSection(formData.bookID, formData.num, (err, section) =>{
+            BookClient.getBookSectionByNum(formData.bookID, formData.num, (err, section) =>{
                 if(err){
                     console.log("fail:" + err);
                 } else {
@@ -410,6 +431,12 @@ export default class UnRegister extends React.Component {
                         <Form.Input label="userID" name="userID" type="text" ></Form.Input>
                         <Button type="submit">查詢</Button>
                     </Form>
+
+                    <Form onSubmit={this.handleUserBookAndPost}>
+                        <Form.Input label="userID" name="userID" type="text" ></Form.Input>
+                        <Button type="submit">查詢</Button>
+                    </Form>
+
                     <Form onSubmit={this.handleBookID}>
                         <Form.Input label="bookID" name="bookID" type="text" ></Form.Input>
                     <Button type="submit">查詢</Button>
@@ -421,6 +448,9 @@ export default class UnRegister extends React.Component {
 
                     <Form onSubmit={this.handleInterest}>
                         <Button type="submit">有興趣書籍</Button>
+                    </Form>
+                    <Form onSubmit={this.handleInterest2}>
+                        <Button type="submit">有興趣書籍2</Button>
                     </Form>
 
                     <Form onSubmit={this.handleMyBooks}>

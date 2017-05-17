@@ -14,6 +14,9 @@ export default class BookClient {
     static getInterestedBooks(cb) {
         Client._fetch(Config.serverIP + "get/interestedBooks", "GET", null, cb);
     }
+    static getInterestedBooksAndPosts(cb) {
+        Client._fetch(Config.serverIP + "get/interestedBooksAndPosts", "GET", null, cb);
+    }
     static getRecommendedBooks(cb) {
         Client._fetch(Config.serverIP + "get/recommendedBooks", "GET", null, cb);
     }
@@ -21,13 +24,16 @@ export default class BookClient {
     static getBooksByUser(userID, cb) {
         Client._fetch(Config.serverIP + "get/booksByUser?userID=" + userID, "GET", null, cb);
     }
+    static getBooksAndPostsByUser(userID, cb) {
+        Client._fetch(Config.serverIP + "get/booksAndPostsByUser?userID=" + userID, "GET", null, cb);
+    }
     static getBookByID(bookID, cb) {
         Client._fetch(Config.serverIP + "get/bookByID?bookID=" + bookID, "GET", null, cb);
     }
     static getBookSection(sectionID, cb) {
         Client._fetch(Config.serverIP + "get/bookSection?sectionID=" + sectionID, "GET", null, cb);
     }
-    static getBookSection(bookID, sectionNum, cb) {
+    static getBookSectionByNum(bookID, sectionNum, cb) {
         Client._fetch(Config.serverIP + "get/bookSection?bookID=" + bookID + "&num=" + sectionNum, "GET", null, cb);
     }
 
