@@ -214,7 +214,7 @@ export default class UnRegister extends React.Component {
 
     handleInterest(e, { formData }) {
 		e.preventDefault();
-		BookClient.getInterestedBooks((err, books) =>{
+		BookClient.getStoredBooks((err, books) =>{
             if(err){
                 console.log("fail:" + err);
             } else {
