@@ -164,7 +164,7 @@ export default class UnRegister extends React.Component {
 	}
     handlePostComment(e, { formData }) {
 		e.preventDefault();
-        BookClient.postBookComment(formData.bookID, formData.comment, (err, res) => {
+        BookClient.postBookComment(formData.bookID, formData.num, formData.pageNum, formData.content, (err, res) => {
             if(err){
                 console.log("fail:" + err);
             } else {
@@ -527,7 +527,9 @@ export default class UnRegister extends React.Component {
                    
                     <Form onSubmit={this.handlePostComment}>
                         <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
-                        <Form.Input label="意見" name="comment" type="text" ></Form.Input>
+                        <Form.Input label="哪一章" name="num" type="text" ></Form.Input>
+                        <Form.Input label="哪一頁" name="pageNum" type="text" ></Form.Input>
+                        <Form.Input label="意見" name="content" type="text" ></Form.Input>
                         <Button type="submit">留言</Button>
                     </Form>
 

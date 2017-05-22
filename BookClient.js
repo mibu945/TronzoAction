@@ -54,10 +54,12 @@ export default class BookClient {
     }
 
 
-    static postBookComment(bookID, comment, cb) {
+    static postBookComment(bookID, sectionNum, pageNum, content, cb) {
         Client._fetch(Config.serverIP + "post/bookComment", "POST", JSON.stringify({
-            bookID : bookID,
-            comment: comment
+            bookID: bookID,
+            sectionNum: sectionNum,
+            pageNum: pageNum,
+            content: content
         }), cb);
     }
  
