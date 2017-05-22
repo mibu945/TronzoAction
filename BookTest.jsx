@@ -276,13 +276,24 @@ export default class UnRegister extends React.Component {
         });
 	}
 
-
+    handleShare(e, { formData }) {
+		e.preventDefault();
+	    BookClient.putShareBook(formData.bookID, (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(books));
+            }
+        });
+    }
     handleLike(e, { formData }) {
 		e.preventDefault();
 	    BookClient.putLikeBook(formData.bookID, (err, books) =>{
             if(err){
                 console.log("fail:" + err);
-            } 
+            } else {
+                console.log(JSON.stringify(books));
+            }
         });
     }
     handleCancelLike(e, { formData }) {
@@ -290,7 +301,9 @@ export default class UnRegister extends React.Component {
 	    BookClient.putCancelLikeBook(formData.bookID, (err, books) =>{
             if(err){
                 console.log("fail:" + err);
-            } 
+            } else {
+                console.log(JSON.stringify(books));
+            }
         });
     }
     handleStore(e, { formData }) {
@@ -298,7 +311,9 @@ export default class UnRegister extends React.Component {
 	    BookClient.putStoreBook(formData.bookID, (err, books) =>{
             if(err){
                 console.log("fail:" + err);
-            } 
+            } else {
+                console.log(JSON.stringify(books));
+            }
         });
     }
     handleCancelStore(e, { formData }) {
@@ -306,7 +321,9 @@ export default class UnRegister extends React.Component {
 	    BookClient.putCancelStoreBook(formData.bookID, (err, books) =>{
             if(err){
                 console.log("fail:" + err);
-            } 
+            } else {
+                console.log(JSON.stringify(books));
+            }
         });
     }
     handleProfilePic(e, { formData }) {
@@ -314,7 +331,9 @@ export default class UnRegister extends React.Component {
 	    UserClient.putUserProfilePic(this.state.pic, (err, books) =>{
             if(err){
                 console.log("fail:" + err);
-            } 
+            } else {
+                console.log(JSON.stringify(books));
+            }
         });
     }
     handleGetSection(e, { formData }) {
@@ -346,6 +365,16 @@ export default class UnRegister extends React.Component {
                 console.log(JSON.stringify(posts));
             }
         });
+    }
+    handleGetComments(e, { formData }) {
+		e.preventDefault();
+	    BookClient.getBookComments(formData.bookID, formData.sectionNum, formData.pageNum, (err, posts) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(posts));
+            }
+        }, formData.amount, formData.times);
     }
     handlePostPost(e, { formData }) {
 		e.preventDefault();
@@ -506,6 +535,10 @@ export default class UnRegister extends React.Component {
                         <Form.Input label="書ID" name="id8" type="text" ></Form.Input>
                         <Button type="submit">送出</Button>
                     </Form>
+                    <Form onSubmit={this.handleShare}>
+                        <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
+                        <Button type="submit"> 分享</Button>
+                    </Form>
 
                     <Form onSubmit={this.handleLike}>
                         <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
@@ -579,6 +612,14 @@ export default class UnRegister extends React.Component {
                     <Form onSubmit={this.handleDeletePost}>
                         <Form.Input label="postID" name="postID" type="text" ></Form.Input>
                         <Button type="submit">刪除文</Button>
+                    </Form>
+                    <Form onSubmit={this.handleGetComments}>
+                        <Form.Input label="bookID" name="bookID" type="text" ></Form.Input>
+                        <Form.Input label="哪一章" name="sectionNum" type="text" ></Form.Input>
+                        <Form.Input label="哪一頁" name="pageNum" type="text" ></Form.Input>
+                        <Form.Input label="多少量" name="amount" type="text" ></Form.Input>
+                        <Form.Input label="第幾次" name="times" type="text" ></Form.Input>
+                        <Button type="submit">查評論</Button>
                     </Form>
 
                </div>
