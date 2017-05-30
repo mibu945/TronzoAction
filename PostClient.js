@@ -15,6 +15,22 @@ export default class PostClient {
     static putPost(postID, content, cb) {  
         Client._fetch(Config.serverIP + "put/post", "POST", JSON.stringify({postID: postID, content: content}), cb);
     }
+    static putSharePost(postID, cb) {
+        Client._fetch(Config.serverIP + "put/sharePost", "POST", JSON.stringify({
+            postID : postID
+        }), cb);
+    }
+
+    static putLikePost(postID, cb) {
+        Client._fetch(Config.serverIP + "put/likePost", "POST", JSON.stringify({
+            postID : postID
+        }), cb);
+    }
+    static putCancelLikePost(postID, cb) {
+        Client._fetch(Config.serverIP + "put/cancelLikePost", "POST", JSON.stringify({
+            postID : postID
+        }), cb);
+    }
     static deletePost(postID, cb) {  
         Client._fetch(Config.serverIP + "delete/post", "POST", JSON.stringify({postID: postID}), cb);
     }

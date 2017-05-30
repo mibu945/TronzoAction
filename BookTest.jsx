@@ -275,7 +275,36 @@ export default class UnRegister extends React.Component {
             }
         });
 	}
-
+    handleSharePost(e, { formData }) {
+		e.preventDefault();
+	    PostClient.putSharePost(formData.postID, (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(books));
+            }
+        });
+    }
+    handleLikePost(e, { formData }) {
+		e.preventDefault();
+	    PostClient.putLikePost(formData.postID, (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(books));
+            }
+        });
+    }
+    handleCancelLikePost(e, { formData }) {
+		e.preventDefault();
+	    PostClient.putCancelLikePost(formData.postID, (err, books) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(books));
+            }
+        });
+    }
     handleShare(e, { formData }) {
 		e.preventDefault();
 	    BookClient.putShareBook(formData.bookID, (err, books) =>{
@@ -539,6 +568,21 @@ export default class UnRegister extends React.Component {
                         <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
                         <Button type="submit"> 分享</Button>
                     </Form>
+
+                     <Form onSubmit={this.handleSharePost}>
+                        <Form.Input label="PostID" name="postID" type="text" ></Form.Input>
+                        <Button type="submit"> 分享</Button>
+                    </Form>
+
+                    <Form onSubmit={this.handleLikePost}>
+                        <Form.Input label="PostID" name="postID" type="text" ></Form.Input>
+                        <Button type="submit">點贊</Button>
+                    </Form>
+                     <Form onSubmit={this.handleCancelLikePost}>
+                        <Form.Input label="PostID" name="postID" type="text" ></Form.Input>
+                        <Button type="submit">取消點贊</Button>
+                    </Form>
+
 
                     <Form onSubmit={this.handleLike}>
                         <Form.Input label="書ID" name="bookID" type="text" ></Form.Input>
