@@ -452,7 +452,27 @@ export default class UnRegister extends React.Component {
         });
     }
 
-    
+    handlePostComment(e, { formData }) {
+		e.preventDefault();
+	    PostClient.postPostComment(formData.postID, formData.content, (err, res) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(res));
+            }
+        });
+    }
+    handleDeletePostComment(e, { formData }) {
+		e.preventDefault();
+	    PostClient.deletePostComment(formData.postID, (err, res) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(res));
+            }
+        });
+    }
+
 	render (){
 		return (
                 <div className="">
@@ -665,6 +685,17 @@ export default class UnRegister extends React.Component {
                         <Form.Input label="第幾次" name="times" type="text" ></Form.Input>
                         <Button type="submit">查評論</Button>
                     </Form>
+
+                    <Form onSubmit={this.handlePostComment}>
+                        <Form.Input label="postID" name="postID" type="text" ></Form.Input>
+                        <Form.Input label="內容" name="content" type="text" ></Form.Input>
+                        <Button type="submit">留言</Button>
+                    </Form>
+                    <Form onSubmit={this.handleDeletePostComment}>
+                        <Form.Input label="postID" name="postID" type="text" ></Form.Input>
+                        <Button type="submit">刪除留言</Button>
+                    </Form>
+
 
                </div>
 

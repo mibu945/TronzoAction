@@ -12,6 +12,10 @@ export default class PostClient {
     static postPost(bookID, content, cb) {  
         Client._fetch(Config.serverIP + "post/post", "POST", JSON.stringify({bookID: bookID, content: content}), cb);
     }
+    static postPostComment(postID, content, cb) {  
+        Client._fetch(Config.serverIP + "post/postComment", "POST", JSON.stringify({postID: postID, content: content}), cb);
+    }
+
     static putPost(postID, content, cb) {  
         Client._fetch(Config.serverIP + "put/post", "POST", JSON.stringify({postID: postID, content: content}), cb);
     }
@@ -33,6 +37,9 @@ export default class PostClient {
     }
     static deletePost(postID, cb) {  
         Client._fetch(Config.serverIP + "delete/post", "POST", JSON.stringify({postID: postID}), cb);
+    }
+    static deletePostComment(commentID, cb) {  
+        Client._fetch(Config.serverIP + "delete/postComment", "POST", JSON.stringify({commentID: commentID}), cb);
     }
 }
 
