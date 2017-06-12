@@ -267,7 +267,7 @@ export default class UnRegister extends React.Component {
 
     handleRecommend(e, { formData }) {
 		e.preventDefault();
-		BookClient.getRecommendedBooks((err, books) =>{
+		BookClient.getRecommendedEntries((err, books) =>{
             if(err){
                 console.log("fail:" + err);
             } else {
