@@ -8,7 +8,7 @@ export default class BookClient {
     static getStoredListBooks(cb) {
         Client._fetch(Config.serverIP + "get/storedListBooks", "GET", null, cb);
     }
-    static getAllStoredBooks(cb) {
+    static getStoredBooks(cb) {
         Client._fetch(Config.serverIP + "get/storedBooks", "GET", null, cb);
     }
     static getHistoricalBooks(cb) {
@@ -17,17 +17,19 @@ export default class BookClient {
     static getInterestedBooks(cb) {
         Client._fetch(Config.serverIP + "get/interestedBooks", "GET", null, cb);
     }
-    static getFollowEntries(cb) {
+    static getInterestedBooksAndPosts(cb) {
         Client._fetch(Config.serverIP + "get/interestedBooksAndPosts", "GET", null, cb);
     }
     static getRecommendedBooks(cb) {
         Client._fetch(Config.serverIP + "get/recommendedBooks", "GET", null, cb);
     }
-
+    static getRecommendedEntries(cb) {
+        Client._fetch(Config.serverIP + "get/recommendedEntries", "GET", null, cb);
+    }
     static getBooksByUser(userID, cb) {
         Client._fetch(Config.serverIP + "get/booksByUser?userID=" + userID, "GET", null, cb);
     }
-    static getEntriesByUser(userID, cb) {
+    static getBooksAndPostsByUser(userID, cb) {
         Client._fetch(Config.serverIP + "get/booksAndPostsByUser?userID=" + userID, "GET", null, cb);
     }
     static getBookByID(bookID, cb) {
@@ -44,6 +46,7 @@ export default class BookClient {
     }
 
     static postBook(book, cb) {
+       
         const formData = new FormData();
         console.log(book);
         formData.append("title", book.title);
@@ -52,6 +55,7 @@ export default class BookClient {
         formData.append("cover", book.cover);
         console.log(book.cover.size);
         Client._fetch2(Config.serverIP + "post/book", "POST", formData, cb);
+
     }
 
 
@@ -63,7 +67,7 @@ export default class BookClient {
             content: content
         }), cb);
     }
-
+ 
     static postBookSection(bookID, title, cb) {
         Client._fetch(Config.serverIP + "post/bookSection", "POST", JSON.stringify({
             bookID : bookID,
@@ -120,7 +124,7 @@ export default class BookClient {
             bookIDs : bookIDs
         }), cb);
     }
-
+    
     static deleteBook(bookID, cb) {
         Client._fetch(Config.serverIP + "delete/book", "POST", JSON.stringify({
             bookID: bookID
@@ -133,3 +137,5 @@ export default class BookClient {
         }), cb);
     }
 }
+
+

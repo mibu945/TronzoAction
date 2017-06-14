@@ -24,8 +24,8 @@ export default class UserClient {
             cb(err, res);
         });
     }
-    static getUser(cb) {
-        return Client._fetch(Config.serverIP + "get/user", "GET", null, cb);
+    static getMe(cb) {
+        return Client._fetch(Config.serverIP + "get/me", "GET", null, cb);
     }
 
     //取得基本資訊

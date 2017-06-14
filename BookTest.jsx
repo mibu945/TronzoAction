@@ -21,7 +21,7 @@ export default class UnRegister extends React.Component {
     }
     handleGetUser(e, {formData}) {
 		e.preventDefault();
-        UserClient.getUser((err, user) => {
+        UserClient.getMe((err, user) => {
             if(err){
                 console.log("fail:" + err);
             }
