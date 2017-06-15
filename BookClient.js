@@ -8,7 +8,7 @@ export default class BookClient {
   static getStoredListBooks(cb) {
     Client._fetch(`${Config.serverIP}get/storedListBooks`, 'GET', null, cb);
   }
-  static getStoredBooks(cb) {
+  static getAllStoredBooks(cb) {
     Client._fetch(`${Config.serverIP}get/storedBooks`, 'GET', null, cb);
   }
   static getHistoricalBooks(cb) {
