@@ -452,7 +452,7 @@ export default class UnRegister extends React.Component {
         });
     }
 
-    handlePostComment(e, { formData }) {
+    /*handlePostComment(e, { formData }) {
 		e.preventDefault();
 	    PostClient.postPostComment(formData.postID, formData.content, (err, res) =>{
             if(err){
@@ -461,7 +461,7 @@ export default class UnRegister extends React.Component {
                 console.log(JSON.stringify(res));
             }
         });
-    }
+    }*/
     handleDeletePostComment(e, { formData }) {
 		e.preventDefault();
 	    PostClient.deletePostComment(formData.postID, (err, res) =>{
@@ -472,7 +472,16 @@ export default class UnRegister extends React.Component {
             }
         });
     }
-
+    handleDeleteBookComment(e, { formData }) {
+		e.preventDefault();
+	    BookClient.deleteBookComment(formData.commentID, (err, res) =>{
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(JSON.stringify(res));
+            }
+        });
+    }
 	render (){
 		return (
                 <div className="">
@@ -692,10 +701,13 @@ export default class UnRegister extends React.Component {
                         <Button type="submit">留言</Button>
                     </Form>
                     <Form onSubmit={this.handleDeletePostComment}>
-                        <Form.Input label="postID" name="postID" type="text" ></Form.Input>
+                        <Form.Input label="commentID" name="postID" type="text" ></Form.Input>
                         <Button type="submit">刪除留言</Button>
                     </Form>
-
+                    <Form onSubmit={this.handleDeleteBookComment}>
+                        <Form.Input label="commentID" name="commentID" type="text" ></Form.Input>
+                        <Button type="submit">刪除書的留言</Button>
+                    </Form>
 
                </div>
 

@@ -134,4 +134,9 @@ export default class BookClient {
       sectionID,
     }), cb);
   }
+  static deleteBookComment(commentID, cb) {
+    Client._fetch(`${Config.serverIP}delete/bookComment`, 'POST', JSON.stringify({
+      commentID,
+    }), cb);
+  }
 }
