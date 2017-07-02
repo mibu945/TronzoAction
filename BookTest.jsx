@@ -206,6 +206,21 @@ export default class UnRegister extends React.Component {
             }
         });
 	}
+    handlePutSection2(e, { formData }) {
+		e.preventDefault();
+        BookClient.putBookSectionTmp({
+            sectionID: formData.sectionID, 
+            title: formData.title, 
+            tmp: formData.content
+        }, (err, res) => {
+            if(err){
+                console.log("fail:" + err);
+            } else {
+                console.log(res.suc);
+            }
+        });
+	}
+    
     handleRegister(e, { formData }) {
 		e.preventDefault();
 		UserClient.register(formData, (err, res) =>{
@@ -650,6 +665,13 @@ export default class UnRegister extends React.Component {
                         <Form.Input label="標題" name="title" type="text" ></Form.Input>
                         <Form.Input label="內文" name="content" type="text" ></Form.Input>
                         <Button type="submit">修改</Button>
+                    </Form>
+                    
+                    <Form onSubmit={this.handlePutSection2}>
+                        <Form.Input label="章節ID" name="sectionID" type="text" ></Form.Input>
+                        <Form.Input label="標題" name="title" type="text" ></Form.Input>
+                        <Form.Input label="內文" name="content" type="text" ></Form.Input>
+                        <Button type="submit">暫存</Button>
                     </Form>
 
                     <Form onSubmit={this.handleDeleteSection}>

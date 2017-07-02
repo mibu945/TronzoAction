@@ -89,6 +89,14 @@ export default class BookClient {
       content: section.content,
     }), cb);
   }
+  
+  static putBookSectionTmp(section, cb) {
+    Client._fetch(`${Config.serverIP}put/bookSection`, 'POST', JSON.stringify({
+      sectionID: section.sectionID,
+      title: section.title,
+      tmp: section.content,
+    }), cb);
+  }
 
   static putShareBook(bookID, cb) {
     Client._fetch(`${Config.serverIP}put/shareBook`, 'POST', JSON.stringify({
