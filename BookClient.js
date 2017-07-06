@@ -82,19 +82,19 @@ export default class BookClient {
     }), cb);
   }
 
-  static putBookSection(section, cb) {
+  static putBookSection(chapter, cb) {
     Client._fetch(`${Config.serverIP}put/bookSection`, 'POST', JSON.stringify({
-      sectionID: section.sectionID,
-      title: section.title,
-      content: section.content,
+      sectionID: chapter._id,
+      title: chapter.title,
+      content: chapter.content,
     }), cb);
   }
-  
-  static putBookSectionTmp(section, cb) {
+
+  static putBookSectionTmp(chapter, cb) {
     Client._fetch(`${Config.serverIP}put/bookSection`, 'POST', JSON.stringify({
-      sectionID: section.sectionID,
-      title: section.title,
-      tmp: section.content,
+      sectionID: chapter._id,
+      title: chapter.title,
+      tmp: chapter.content,
     }), cb);
   }
 
