@@ -79,8 +79,10 @@ export default class BookClient {
       title: book.title,
       type: book.type,
       description: book.description,
+      sections: book.sections
     }), cb);
   }
+  
 
   static putBookSection(chapter, cb) {
     Client._fetch(`${Config.serverIP}put/bookSection`, 'POST', JSON.stringify({

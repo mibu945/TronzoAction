@@ -45,11 +45,11 @@ export default class UserClient {
     static putUserProfilePic(pic, cb) {
         const formData = new FormData();
         formData.append("profilePic", pic);
-        Client._fetch2(Config.serverIP + "put/userProfilePic", "POST", formData, cb);
+        Client._fetch2(Config.serverIP + "put/user", "POST", formData, cb);
     }
 
     static putUser(user, cb) {
-        return Client._fetch(Config.serverIP + "put/user", "POST", JSON.stringify({description: user.description}), cb);
+        return Client._fetch(Config.serverIP + "put/user", "POST", JSON.stringify({name: user.name, description: user.description}), cb);
     }
 
     //追隨其他user

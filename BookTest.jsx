@@ -28,7 +28,24 @@ export default class UnRegister extends React.Component {
             console.log(JSON.stringify(user));
         });
     }
-
+    handlePutBook(e, {formData}) {
+		e.preventDefault();
+        BookClient.putBook(formData, (err, user) => {
+            if(err){
+                console.log("fail:" + err);
+            }
+            console.log(JSON.stringify(user));
+        });
+    }
+    handlePutBook2(e, {formData}) {
+		e.preventDefault();
+        BookClient.putBook({_id: formData._id, sections: formData.ids.split(" ")}, (err, user) => {
+            if(err){
+                console.log("fail:" + err);
+            }
+            console.log(JSON.stringify(user));
+        });
+    }
     handleBookID(e, {formData}) {
 		e.preventDefault();
         BookClient.getBookByID(formData.bookID, (err, user) => {
@@ -515,6 +532,11 @@ export default class UnRegister extends React.Component {
                         <Form.Input label="敘述" name="description" type="text" ></Form.Input>
                         <Button type="submit">更改</Button>
                     </Form>
+                    <Form onSubmit={this.handlePutUser} >
+                        <Form.Input label="名字" name="name" type="text" ></Form.Input>
+                        <Button type="submit">更改</Button>
+                    </Form>
+
                     <Form onSubmit={this.handleFollow} >
                         <Form.Input label="UserID" name="userID" type="text" ></Form.Input>
                         <Button type="submit">追隨</Button>
@@ -588,7 +610,19 @@ export default class UnRegister extends React.Component {
                         <Button type="submit">創書</Button>
                      </Form>
                     
-                    <Form onSubmit={this.handleSearch}>
+                     <Form onSubmit={this.handlePutBook}>
+                        <Form.Input label="書id" name="_id" type="text" ></Form.Input>
+                        <Form.Input label="書名" name="title" type="text" ></Form.Input>
+                        <Form.Input label="說明" name="description" type="text" ></Form.Input>
+                        <Button type="submit">改書</Button>
+                     </Form>
+
+                     <Form onSubmit={this.handlePutBook2}>
+                        <Form.Input label="書id" name="_id" type="text" ></Form.Input>
+                        <Form.Input label="新序列" name="ids" type="text" ></Form.Input>
+                        <Button type="submit">改書</Button>
+                     </Form>
+                   <Form onSubmit={this.handleSearch}>
                         <Form.Input label="書名" name="bookName" type="text" ></Form.Input>
                         <Button type="submit">查詢</Button>
                     </Form>
